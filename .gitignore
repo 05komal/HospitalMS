@@ -1,0 +1,23 @@
+# Maven
+target/
+*.class
+*.war
+*.ear
+
+# Eclipse/CodeReady Studio
+.settings/
+.classpath
+.project
+.metadata/
+
+# JBoss
+*.deployed
+*.dodeploy
+
+# IDE
+*.iml
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
