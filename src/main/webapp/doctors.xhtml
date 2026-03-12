@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Doctors - Hospital Management System</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #cc0000; color: white; }
+        .btn { background: #cc0000; color: white; padding: 8px 16px; border: none; cursor: pointer; }
+        .btn-delete { background: #333; color: white; padding: 5px 10px; border: none; cursor: pointer; }
+        h1 { color: #cc0000; }
+    </style>
+</h:head>
+<h:body>
+    <h1>🏥 Doctor Management</h1>
+    <a href="index.xhtml">← Back to Home</a>
+    <h2>Add New Doctor</h2>
+    <h:form>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><h:inputText value="#{doctorBean.doctor.name}" required="true"/></td>
+            </tr>
+            <tr>
+                <td>Specialization:</td>
+                <td><h:inputText value="#{doctorBean.doctor.specialization}" required="true"/></td>
+            </tr>
+            <tr>
+                <td>Department:</td>
+                <td><h:inputText value="#{doctorBean.doctor.department}"/></td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td><h:inputText value="#{doctorBean.doctor.phone}"/></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><h:inputText value="#{doctorBean.doctor.email}"/></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h:commandButton value="Add Doctor" 
+                                     action="#{doctorBean.addDoctor}"
+                                     styleClass="btn"/>
+                </td>
+            </tr>
+        </table>
+    </h:form>
+
+    <h2>All Doctors</h2>
+    <h:dataTable value="#{doctorBean.doctorList}" var="doc"
+                 border="1" cellpadding="5">
+        <h:column><f:facet name="header">ID</f:facet>#{doc.id}</h:column>
+        <h:column><f:facet name="header">Name</f:facet>#{doc.name}</h:column>
+        <h:column><f:facet name="header">Specialization</f:facet>#{doc.specialization}</h:column>
+        <h:column><f:facet name="header">Department</f:facet>#{doc.department}</h:column>
+        <h:column><f:facet name="header">Phone</f:facet>#{doc.phone}</h:column>
+        <h:column><f:facet name="header">Email</f:facet>#{doc.email}</h:column>
+        <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:form>
+                <h:commandButton value="Delete"
+                                 action="#{doctorBean.deleteDoctor(doc.id)}"
+                                 styleClass="btn-delete"/>
+            </h:form>
+        </h:column>
+    </h:dataTable>
+</h:body>
+</html>

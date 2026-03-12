@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Appointments</title>
+</h:head>
+<h:body>
+    <h1>📅 Appointment Management</h1>
+    <h:link value="← Back to Home" outcome="/index"/>
+
+    <h2>Book Appointment</h2>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Select Patient:"/>
+            <h:selectOneMenu value="#{appointmentBean.selectedPatientId}" required="true">
+                <f:selectItem itemLabel="-- Select Patient --" itemValue="0"/>
+                <f:selectItems value="#{appointmentBean.patientList}"
+                               var="p"
+                               itemLabel="#{p.name}"
+                               itemValue="#{p.id}"/>
+            </h:selectOneMenu>
+
+            <h:outputLabel value="Select Doctor:"/>
+            <h:selectOneMenu value="#{appointmentBean.selectedDoctorId}" required="true">
+                <f:selectItem itemLabel="-- Select Doctor --" itemValue="0"/>
+                <f:selectItems value="#{appointmentBean.doctorList}"
+                               var="d"
+                               itemLabel="#{d.name} (#{d.specialization})"
+                               itemValue="#{d.id}"/>
+            </h:selectOneMenu>
+
+            <h:outputLabel value="Date:"/>
+            <h:inputText value="#{appointmentBean.appointment.appointmentDate}" required="true">
+                <f:convertDateTime pattern="yyyy-MM-dd"/>
+            </h:inputText>
+
+            <h:outputLabel value="Notes:"/>
+            <h:inputText value="#{appointmentBean.appointment.notes}"/>
+        </h:panelGrid>
+        <h:commandButton value="Book Appointment" action="#{appointmentBean.addAppointment}"/>
+        <h:messages styleClass="messages"/>
+    </h:form>
+
+    <h2>Appointments List</h2>
+    <h:dataTable value="#{appointmentBean.appointmentList}" var="a" border="1">
+        <h:column><f:facet name="header">ID</f:facet>#{a.id}</h:column>
+        <h:column><f:facet name="header">Patient</f:facet>#{a.patient.name}</h:column>
+        <h:column><f:facet name="header">Doctor</f:facet>#{a.doctor.name}</h:column>
+        <h:column><f:facet name="header">Specialization</f:facet>#{a.doctor.specialization}</h:column>
+        <h:column><f:facet name="header">Date</f:facet>
+            <h:outputText value="#{a.appointmentDate}">
+                <f:convertDateTime pattern="yyyy-MM-dd"/>
+            </h:outputText>
+        </h:column>
+        <h:column><f:facet name="header">Status</f:facet>#{a.status}</h:column>
+        <h:column><f:facet name="header">Notes</f:facet>#{a.notes}</h:column>
+        <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:form>
+                <h:commandButton value="Delete" action="#{appointmentBean.deleteAppointment(a.id)}"/>
+            </h:form>
+        </h:column>
+    </h:dataTable>
+</h:body>
+</html>
