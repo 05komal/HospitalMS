@@ -1,0 +1,5 @@
+com\hospital\entities\Patient.class
+com\hospital\rest\JaxRsActivator.class
+com\hospital\controller\PatientBean.class
+com\hospital\util\Resources.class
+com\hospital\service\PatientService.class

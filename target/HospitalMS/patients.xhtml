@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Hospital Management - Patients</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #cc0000; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .form-section { background: #f9f9f9; padding: 20px; 
+                        margin-bottom: 20px; border-radius: 5px; }
+        input { padding: 5px; margin: 5px; width: 200px; }
+        .btn { background: #cc0000; color: white; 
+               padding: 8px 15px; border: none; cursor: pointer; }
+    </style>
+</h:head>
+
+<h:body>
+    <h1>🏥 Hospital Management System</h1>
+    <h2>Patient Registration</h2>
+
+    <!-- Add Patient Form -->
+    <div class="form-section">
+        <h3>Add New Patient</h3>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Name:"/>
+                <h:inputText value="#{patientBean.patient.name}" 
+                             required="true"/>
+
+                <h:outputLabel value="Age:"/>
+                <h:inputText value="#{patientBean.patient.age}"/>
+
+                <h:outputLabel value="Gender:"/>
+                <h:selectOneMenu value="#{patientBean.patient.gender}">
+                    <f:selectItem itemValue="Male" itemLabel="Male"/>
+                    <f:selectItem itemValue="Female" itemLabel="Female"/>
+                    <f:selectItem itemValue="Other" itemLabel="Other"/>
+                </h:selectOneMenu>
+
+                <h:outputLabel value="Phone:"/>
+                <h:inputText value="#{patientBean.patient.phone}"/>
+
+                <h:outputLabel value="Email:"/>
+                <h:inputText value="#{patientBean.patient.email}"/>
+
+                <h:outputLabel value="Address:"/>
+                <h:inputTextarea value="#{patientBean.patient.address}" 
+                                 rows="3" cols="30"/>
+            </h:panelGrid>
+            <br/>
+            <h:commandButton value="Add Patient" 
+                             action="#{patientBean.addPatient}"
+                             styleClass="btn"/>
+        </h:form>
+    </div>
+
+    <!-- Patient List -->
+    <h2>All Patients</h2>
+    <h:dataTable value="#{patientBean.patientList}" 
+                 var="p" border="1">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{p.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{p.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Age</f:facet>
+            #{p.age}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Gender</f:facet>
+            #{p.gender}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Phone</f:facet>
+            #{p.phone}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Email</f:facet>
+            #{p.email}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:form>
+                <h:commandButton value="Delete"
+                    action="#{patientBean.deletePatient(p.id)}"
+                    styleClass="btn"
+                    onclick="return confirm('Delete this patient?')"/>
+            </h:form>
+        </h:column>
+    </h:dataTable>
+</h:body>
+</html>
